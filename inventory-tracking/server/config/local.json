@@ -1,0 +1,12 @@
+{
+    "app": {
+        "name": "Inventory Tracking"
+    },
+    "server": {
+        "port": 3000,
+        "url": "http://127.0.0.1:3000"
+    },
+    "mongodb": {
+        "url": "mongodb://127.0.0.1:27017/inventory"
+    }
+}
