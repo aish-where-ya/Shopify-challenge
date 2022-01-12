@@ -1,10 +1,10 @@
-import '../css/App.css';
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import '../css/App.css';
 import getData from '../helpers/getData';
 import Add from './Add';
 import Update from './Update';
 import Delete from'./Delete';
+import ExportCSV from './ExportCSV';
 
 const App = () => {
   const [data,setData] = useState([]);
@@ -14,7 +14,6 @@ const App = () => {
       if (data==undefined){
         data = {'inventory':[]}
       }
-      console.log(data['inventory'])
       setData(data['inventory'])});
   }
 
@@ -24,7 +23,14 @@ const App = () => {
 
   return (
     <div>
-      <Add onAdd={fetchData}/>
+      <section className="container">
+        <div className="btn-one">
+          <Add onAdd={fetchData}/>
+        </div>
+        <div className="btn-two">
+        <ExportCSV csvdata={data}/>
+        </div>
+      </section>
       <table>
         <thead>
           <tr><th></th><th className='button-col'>Name</th><th className='button-col'>Type</th><th className='button-col'>Cost</th><th className='button-col'>Update</th><th className='button-col'>Delete</th></tr>

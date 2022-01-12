@@ -44,7 +44,7 @@ const Update = (props) => {
     if(messageFromServer == ''){
         return (
             <div>
-            <Button variant="success" size="small" onClick={openModal}><span className="glyphicon glyphicon-plus"></span></Button>
+            <Button variant="warning" size="small" onClick={openModal}><span className="glyphicon glyphicon-edit"></span></Button>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}

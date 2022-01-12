@@ -95,3 +95,14 @@ fieldset{
 .closebtn{
   float:right;
 }
+.container {
+  margin: auto;
+  padding: 10px;
+}
+.btn-one {
+  float: left;
+}
+
+.btn-two {
+  margin-left: 15%;
+}
