@@ -1,21 +1,26 @@
 import '../css/App.css';
+import React, {useState} from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import Add from './Add'
 
-function App() {
+const App = () => {
+  const [data,setData] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Add/>
+      <table>
+        <thead>
+          <tr><th></th><th className='desc-col'>ID</th><th className='button-col'>Name</th><th className='button-col'>Type</th><th className='button-col'>Cost</th></tr>
+        </thead>
+        <tbody>
+          {/* {
+            data.map(function(exp){
+              return  <tr><td className='counterCell'></td><td className='desc-col'>{exp.id}</td><td className='button-col'>{exp.name}</td><td className='button-col'>{exp.type}</td><td className='button-col'>{exp.cost}</td></tr>
+            })
+          } */}
+          </tbody>
+      </table>
     </div>
   );
 }

@@ -3,10 +3,12 @@ var webpack = require('webpack');
 
 module.exports = {
  entry: '/client/index.js',
+ mode: 'development',
  output: {
   path: path.join(__dirname, 'client'),
   filename: 'bundle.js'
  },
+ devtool: 'source-map',
  module: {
   rules: [{
    test: /.jsx?$/,
