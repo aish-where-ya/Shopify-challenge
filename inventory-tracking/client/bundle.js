@@ -2553,7 +2553,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var _helpers_deleteData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/deleteData */ "./client/helpers/deleteData.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2593,17 +2592,9 @@ var Delete = function Delete(props) {
     variant: "danger",
     size: "small",
     onClick: onClick
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-    to: {
-      pathname: '/',
-      search: ''
-    },
-    style: {
-      textDecoration: 'none'
-    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "glyphicon glyphicon-remove"
-  })));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Delete);
@@ -2679,9 +2670,6 @@ var Update = function Update(props) {
 
   var closeModal = function closeModal() {
     setModelIsOpen(false);
-    setName("");
-    setType("");
-    setCost(0);
     setMessageFromServer("");
     props.onUpdate();
   };
@@ -2743,7 +2731,7 @@ var Update = function Update(props) {
       htmlFor: "name"
     }, "Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
       type: "text",
-      id: "name",
+      id: "nam   e",
       name: "name",
       value: name,
       onChange: handleTextChange

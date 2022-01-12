@@ -16,9 +16,7 @@ const Delete = (props) => {
     }
     return (
         <Button variant="danger" size="small" onClick={onClick}>
-            <Link to={{pathname: '/', search: '' }} style={{ textDecoration: 'none' }}>
-                        <span className="glyphicon glyphicon-remove"></span>
-            </Link>
+            <span className="glyphicon glyphicon-remove"></span>
         </Button>
     )
 }

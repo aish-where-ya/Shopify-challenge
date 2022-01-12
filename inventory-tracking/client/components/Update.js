@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from 'react-bootstrap';
 import Modal from 'react-modal';
 import {Link} from 'react-router-dom';
@@ -15,9 +15,6 @@ const Update = (props) => {
     }
     const closeModal = () => {
         setModelIsOpen(false);
-        setName("");
-        setType("");
-        setCost(0);
         setMessageFromServer("");
         props.onUpdate();
     }
@@ -58,7 +55,7 @@ const Update = (props) => {
                     <Button variant="danger" size="mini" onClick={closeModal}><span className="closebtn glyphicon glyphicon-remove"></span></Button>
                 </Link><br/>
                 <fieldset>
-                    <label htmlFor="name">Name:</label><input type="text" id="name" name="name" value={name} onChange={handleTextChange}></input>
+                    <label htmlFor="name">Name:</label><input type="text" id="nam   e" name="name" value={name} onChange={handleTextChange}></input>
                     <label htmlFor="type">Type:</label><input type="text" id="type" name="type" value={type} onChange={handleTextChange}></input>
                     <label htmlFor="cost">Cost:</label><input type="number" id="cost" name="cost" value={cost} onChange={handleTextChange}></input>
                 </fieldset>
