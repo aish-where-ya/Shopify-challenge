@@ -3,7 +3,7 @@ const InventoryService = require('../services/inventory.service');
 
 exports.create = async function (req, res, next) {
     try {
-        await InventoryService.create(req.body, req.user);
+        await InventoryService.create(req.body);
         res.status(200).json({
             message: 'Inventory created.'
         });
@@ -42,7 +42,7 @@ exports.delete = async function (req, res, next) {
 
 exports.get = async function (req, res, next) {
     try {
-        let inventory = await InventoryService.get(req.params._id);
+        let inventory = await InventoryService.get();
         res.status(200).json({
             inventory
         });

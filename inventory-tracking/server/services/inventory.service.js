@@ -1,7 +1,7 @@
 const Inventory = require('../models/Inventory')
 const utils = require('../utils');
 
-exports.create = async function (obj, user) {
+exports.create = async function (obj) {
     if (!obj.name) throw Error('Name is required');
     if (!obj.type) throw Error('Type is required');
     if (!obj.cost) throw Error('Cost is required');
@@ -45,8 +45,7 @@ exports.delete = async function (_id) {
     await Inventory.deleteOne({ _id: inventory._id });
 }
 
-exports.get = async function (_id) {
-    if (!_id) throw Error('_id is required.');
+exports.get = async function () {
     let inventory = await Inventory.find();
     if (!inventory) throw Error('Inventory not found.');
     return inventory;

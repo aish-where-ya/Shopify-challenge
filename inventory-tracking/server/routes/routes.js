@@ -8,8 +8,8 @@ router.get('/', function(req, res){
 
 
 router.post('/create', InventoryController.create);
-router.put('/:_id', InventoryController.update);
-router.delete('/:_id', InventoryController.delete);
+router.put('/update?:_id', InventoryController.update);
+router.delete('/delete?:_id', InventoryController.delete);
 router.get('/getAll', InventoryController.get);
 
 module.exports = router;
