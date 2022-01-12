@@ -15,8 +15,9 @@ exports.create = async function (req, res, next) {
 };
 
 exports.update = async function (req, res, next) {
+    console.log("Contoller : ", req.query._id);
     try {
-        await InventoryService.update(req.params._id, req.body);
+        await InventoryService.update(req.query._id, req.body);
         res.status(200).json({
             message: 'Inventory updated.'
         });
@@ -29,7 +30,7 @@ exports.update = async function (req, res, next) {
 
 exports.delete = async function (req, res, next) {
     try {
-        await InventoryService.delete(req.params._id);
+        await InventoryService.delete(req.query._id);
         res.status(200).json({
             message: 'Inventory deleted.'
         });

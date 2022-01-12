@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {Button} from 'react-bootstrap';
 import Modal from 'react-modal';
 import {Link} from 'react-router-dom';
-import addData from '../helpers/addData'
-const Add = (props) => {
-    const [name, setName] = useState("");
-    const [type, setType] = useState("");
-    const [cost, setCost] = useState(0);
+import updateData from '../helpers/updateData'
+const Update = (props) => {
+    const [_id, setId] = useState(props.invItem._id);
+    const [name, setName] = useState(props.invItem.name);
+    const [type, setType] = useState(props.invItem.type);
+    const [cost, setCost] = useState(props.invItem.cost);
     const [messageFromServer, setMessageFromServer] = useState("");
     const [modalIsOpen, setModelIsOpen] = useState(false);
     const openModal = () => {
@@ -18,16 +19,17 @@ const Add = (props) => {
         setType("");
         setCost(0);
         setMessageFromServer("");
-        props.onAdd();
+        props.onUpdate();
     }
     
     const onClick = (e) => {
         let newData = {
+            "_id" : _id,
             "name" : name,
             "type" : type,
             "cost" : cost 
         }
-        Promise.resolve(addData.addData(newData)).then(function(response){
+        Promise.resolve(updateData.updateData(newData)).then(function(response){
             setMessageFromServer(response.message);
         });
     }
@@ -62,7 +64,7 @@ const Add = (props) => {
                 </fieldset>
                 <div className='button-center'>
                     <br/>
-                    <Button variant="success" size="small" onClick={onClick}>Add New Item</Button>
+                    <Button variant="success" size="small" onClick={onClick}>Update</Button>
                 </div>
             </Modal>
             </div>
@@ -86,7 +88,8 @@ const Add = (props) => {
             </div>
             </Modal>
             </div>
-            )
-        }
+        )
     }
-export default Add;
+}
+
+export default Update;

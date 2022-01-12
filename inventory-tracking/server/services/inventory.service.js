@@ -19,7 +19,9 @@ exports.create = async function (obj) {
 exports.update = async function (_id, obj) {
     if (!_id) throw Error('_id is required.');
     let inventory = await module.exports.findById(_id);
-    if (!inventory) throw Error('Inventory not found');
+    if (!inventory) {
+        throw Error('Inventory not found');
+    }
     let updateObj = {};
     if (obj.hasOwnProperty('name')) {
         updateObj.name = obj.name;
@@ -30,7 +32,7 @@ exports.update = async function (_id, obj) {
     if (obj.hasOwnProperty('cost')) {
         updateObj.cost = obj.cost;
     }
-    await Process.updateOne({ _id: inventory._id }, { $set: updateObj });
+    await Inventory.updateOne({ _id: inventory._id }, { $set: updateObj });
 }
 
 exports.findById = async function (_id) {
@@ -47,6 +49,6 @@ exports.delete = async function (_id) {
 
 exports.get = async function () {
     let inventory = await Inventory.find();
-    if (!inventory) throw Error('Inventory not found.');
+    if (!inventory) throw Error('Inventories not found.');
     return inventory;
 }

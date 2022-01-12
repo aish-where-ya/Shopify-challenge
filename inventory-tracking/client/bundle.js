@@ -2266,9 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _helpers_addData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/addData */ "./client/helpers/addData.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2311,13 +2310,7 @@ var Add = function Add(props) {
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
       modalIsOpen = _useState10[0],
-      setModelIsOpen = _useState10[1]; // this.handleSelectChange = this.handleSelectChange.bind(this);
-  //     this.onClick = this.onClick.bind(this);
-  //     this.handleTextChange = this.handleTextChange.bind(this);
-  //     this.insertNewExpense = this.insertNewExpense.bind(this);
-  //     this.openModal = this.openModal.bind(this);
-  //     this.closeModal = this.closeModal.bind(this);
-
+      setModelIsOpen = _useState10[1];
 
   var openModal = function openModal() {
     setModelIsOpen(true);
@@ -2329,10 +2322,18 @@ var Add = function Add(props) {
     setType("");
     setCost(0);
     setMessageFromServer("");
+    props.onAdd();
   };
 
   var onClick = function onClick(e) {
-    insertNewExpense(values);
+    var newData = {
+      "name": name,
+      "type": type,
+      "cost": cost
+    };
+    Promise.resolve(_helpers_addData__WEBPACK_IMPORTED_MODULE_2__["default"].addData(newData)).then(function (response) {
+      setMessageFromServer(response.message);
+    });
   };
 
   var handleTextChange = function handleTextChange(e) {
@@ -2340,11 +2341,11 @@ var Add = function Add(props) {
       setName(e.target.value);
     }
 
-    if (e.target.name == "amount") {
+    if (e.target.name == "type") {
       setType(e.target.value);
     }
 
-    if (e.target.name = "cost") {
+    if (e.target.name == "cost") {
       setCost(e.target.value);
     }
   };
@@ -2415,8 +2416,7 @@ var Add = function Add(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       className: "glyphicon glyphicon-plus"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_1___default()), {
-      isOpen: modalIsOpen // onAfterOpen={afterOpenModal}
-      ,
+      isOpen: modalIsOpen,
       onRequestClose: closeModal,
       ariaHideApp: false,
       contentLabel: "Add Item",
@@ -2454,9 +2454,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_App_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/App.css */ "./client/css/App.css");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _helpers_getData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/getData */ "./client/helpers/getData.js");
 /* harmony import */ var _Add__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Add */ "./client/components/Add.js");
+/* harmony import */ var _Update__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Update */ "./client/components/Update.js");
+/* harmony import */ var _Delete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Delete */ "./client/components/Delete.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2475,24 +2476,465 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
       setData = _useState2[1];
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Add__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
-    className: "desc-col"
-  }, "ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
+  var fetchData = function fetchData() {
+    _helpers_getData__WEBPACK_IMPORTED_MODULE_3__["default"].getData().then(function (data) {
+      if (data == undefined) {
+        data = {
+          'inventory': []
+        };
+      }
+
+      console.log(data['inventory']);
+      setData(data['inventory']);
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    fetchData();
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Add__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    onAdd: fetchData
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
     className: "button-col"
   }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
     className: "button-col"
   }, "Type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
     className: "button-col"
-  }, "Cost"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("tbody", null)));
+  }, "Cost"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
+    className: "button-col"
+  }, "Update"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("th", {
+    className: "button-col"
+  }, "Delete"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("tbody", null, data.map(function (exp) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("tr", {
+      key: exp._id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "counterCell"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "button-col"
+    }, exp.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "button-col"
+    }, exp.type), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "button-col"
+    }, exp.cost), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "button-col"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Update__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      invItem: exp,
+      onUpdate: fetchData
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("td", {
+      className: "button-col"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Delete__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      invItemId: exp._id,
+      onDelete: fetchData
+    })));
+  }))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./client/components/Delete.js":
+/*!*************************************!*\
+  !*** ./client/components/Delete.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _helpers_deleteData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/deleteData */ "./client/helpers/deleteData.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var Delete = function Delete(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.invItemId),
+      _useState2 = _slicedToArray(_useState, 2),
+      _id = _useState2[0],
+      setId = _useState2[1];
+
+  var onClick = function onClick(e) {
+    var newData = {
+      "_id": _id
+    };
+    Promise.resolve(_helpers_deleteData__WEBPACK_IMPORTED_MODULE_2__["default"].deleteData(newData)).then(function (response) {
+      console.log("Item deleted");
+      props.onDelete();
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    variant: "danger",
+    size: "small",
+    onClick: onClick
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    to: {
+      pathname: '/',
+      search: ''
+    },
+    style: {
+      textDecoration: 'none'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "glyphicon glyphicon-remove"
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Delete);
+
+/***/ }),
+
+/***/ "./client/components/Update.js":
+/*!*************************************!*\
+  !*** ./client/components/Update.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _helpers_updateData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/updateData */ "./client/helpers/updateData.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var Update = function Update(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.invItem._id),
+      _useState2 = _slicedToArray(_useState, 2),
+      _id = _useState2[0],
+      setId = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.invItem.name),
+      _useState4 = _slicedToArray(_useState3, 2),
+      name = _useState4[0],
+      setName = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.invItem.type),
+      _useState6 = _slicedToArray(_useState5, 2),
+      type = _useState6[0],
+      setType = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.invItem.cost),
+      _useState8 = _slicedToArray(_useState7, 2),
+      cost = _useState8[0],
+      setCost = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState10 = _slicedToArray(_useState9, 2),
+      messageFromServer = _useState10[0],
+      setMessageFromServer = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      modalIsOpen = _useState12[0],
+      setModelIsOpen = _useState12[1];
+
+  var openModal = function openModal() {
+    setModelIsOpen(true);
+  };
+
+  var closeModal = function closeModal() {
+    setModelIsOpen(false);
+    setName("");
+    setType("");
+    setCost(0);
+    setMessageFromServer("");
+    props.onUpdate();
+  };
+
+  var onClick = function onClick(e) {
+    var newData = {
+      "_id": _id,
+      "name": name,
+      "type": type,
+      "cost": cost
+    };
+    Promise.resolve(_helpers_updateData__WEBPACK_IMPORTED_MODULE_2__["default"].updateData(newData)).then(function (response) {
+      setMessageFromServer(response.message);
+    });
+  };
+
+  var handleTextChange = function handleTextChange(e) {
+    if (e.target.name == "name") {
+      setName(e.target.value);
+    }
+
+    if (e.target.name == "type") {
+      setType(e.target.value);
+    }
+
+    if (e.target.name == "cost") {
+      setCost(e.target.value);
+    }
+  };
+
+  if (messageFromServer == '') {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      variant: "success",
+      size: "small",
+      onClick: openModal
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "glyphicon glyphicon-plus"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_1___default()), {
+      isOpen: modalIsOpen,
+      onRequestClose: closeModal,
+      ariaHideApp: false,
+      contentLabel: "Add Item",
+      className: "Modal"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+      to: {
+        pathname: '/',
+        search: ''
+      },
+      style: {
+        textDecoration: 'none'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      variant: "danger",
+      size: "mini",
+      onClick: closeModal
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "closebtn glyphicon glyphicon-remove"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, "Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      id: "name",
+      name: "name",
+      value: name,
+      onChange: handleTextChange
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "type"
+    }, "Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      id: "type",
+      name: "type",
+      value: type,
+      onChange: handleTextChange
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "cost"
+    }, "Cost:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "number",
+      id: "cost",
+      name: "cost",
+      value: cost,
+      onChange: handleTextChange
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "button-center"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      variant: "success",
+      size: "small",
+      onClick: onClick
+    }, "Update"))));
+  } else {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      variant: "success",
+      size: "small",
+      onClick: openModal
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "glyphicon glyphicon-plus"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_1___default()), {
+      isOpen: modalIsOpen,
+      onRequestClose: closeModal,
+      ariaHideApp: false,
+      contentLabel: "Add Item",
+      className: "Modal"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "button-center"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, messageFromServer), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+      to: {
+        pathname: '/',
+        search: ''
+      },
+      style: {
+        textDecoration: 'none'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      variant: "success",
+      size: "mini",
+      onClick: closeModal
+    }, "Close the Dialog")))));
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Update);
+
+/***/ }),
+
+/***/ "./client/helpers/addData.js":
+/*!***********************************!*\
+  !*** ./client/helpers/addData.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var addData = {
+  'addData': function addData(data) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: "/create",
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        data: data
+      }).then(function (response) {
+        resolve(response.data);
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (addData);
+
+/***/ }),
+
+/***/ "./client/helpers/deleteData.js":
+/*!**************************************!*\
+  !*** ./client/helpers/deleteData.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var deleteData = {
+  'deleteData': function deleteData(data) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'delete',
+        url: "/delete",
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        params: {
+          _id: data._id
+        },
+        data: data
+      }).then(function (response) {
+        resolve(response.data);
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (deleteData);
+
+/***/ }),
+
+/***/ "./client/helpers/getData.js":
+/*!***********************************!*\
+  !*** ./client/helpers/getData.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var getData = {
+  'getData': function getData() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'get',
+        url: "/getAll",
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      }).then(function (response) {
+        resolve(response.data);
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (getData);
+
+/***/ }),
+
+/***/ "./client/helpers/updateData.js":
+/*!**************************************!*\
+  !*** ./client/helpers/updateData.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var updateData = {
+  'updateData': function updateData(data) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'put',
+        url: "/update",
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        params: {
+          _id: data._id
+        },
+        data: data
+      }).then(function (response) {
+        resolve(response.data);
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (updateData);
 
 /***/ }),
 
