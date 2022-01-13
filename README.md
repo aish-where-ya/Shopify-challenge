@@ -48,46 +48,57 @@ CSV File of Product Data -
 
 ## Directory Structure
 ```
-├── bin 
-│   └── www
-├── client
-│   ├── bundle.js
-│   ├── bundle.js.LICENSE.txt
-│   ├── bundle.js.map
-│   ├── components
-│   │   ├── Add.js
-│   │   ├── App.js
-│   │   ├── Delete.js
-│   │   ├── ExportCSV.js
-│   │   └── Update.js
-│   ├── css
-│   │   └── App.css
-│   ├── helpers
-│   │   ├── addData.js
-│   │   ├── deleteData.js
-│   │   ├── getData.js
-│   │   └── updateData.js
-│   ├── index.ejs
-│   ├── index.js
-│   └── routes
-│       └── routes.js
-├── package-lock.json
-├── package.json
-├── server
-│   ├── config
-│   │   └── local.json
-│   ├── controllers
-│   │   └── inventory.controller.js
-│   ├── models
-│   │   └── Inventory.js
-│   ├── routes
-│   │   └── routes.js
-│   ├── server.js
-│   ├── services
-│   │   └── inventory.service.js
-│   └── utils
-│       └── index.js
-└── webpack.config.js
+
+├── README.md
+├── docker-compose.yml
+├── inventory-tracking
+│   ├── Dockerfile
+│   ├── bin
+│   │   └── www
+│   ├── client
+│   │   ├── bundle.js
+│   │   ├── bundle.js.LICENSE.txt
+│   │   ├── bundle.js.map
+│   │   ├── components
+│   │   │   ├── Add.js
+│   │   │   ├── App.js
+│   │   │   ├── Delete.js
+│   │   │   ├── ExportCSV.js
+│   │   │   └── Update.js
+│   │   ├── css
+│   │   │   └── App.css
+│   │   ├── helpers
+│   │   │   ├── addData.js
+│   │   │   ├── deleteData.js
+│   │   │   ├── getData.js
+│   │   │   └── updateData.js
+│   │   ├── index.ejs
+│   │   ├── index.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── server
+│   │   ├── config
+│   │   │   └── local.json
+│   │   ├── controllers
+│   │   │   └── inventory.controller.js
+│   │   ├── models
+│   │   │   └── Inventory.js
+│   │   ├── routes
+│   │   │   └── routes.js
+│   │   ├── server.js
+│   │   ├── services
+│   │   │   └── inventory.service.js
+│   │   └── utils
+│   │       └── index.js
+│   └── webpack.config.js
+└── screenshots
+    ├── ss1.png
+    ├── ss2.png
+    ├── ss3.png
+    └── ss4.png
+
 ```
 
 ## How To Run
@@ -98,39 +109,22 @@ Clone the repository
 
 `git clone https://github.com/aish-where-ya/Shopify-challenge.git`
 
-Move to the `inventory-tracking` folder by running
+Move to the `Shopify-challenge` folder by running
 
 `cd Shopify-challenge/inventory-tracking` 
 
 ### Step 2 - 
 
-Make sure that you have the latest version of Node.js and MongoDB installed. 
-
-For Node.js refer - https://nodejs.org/en/download/
-
-For MongoDB refer - https://docs.mongodb.com/manual/installation/
-
-Note -  This project requires the latest versions of both these packages. (In normal cirsumstances I would have containerized this and run it using a Dockerfile)
+Make sure that you have Docker installed. Look up the documentation on how to install Docker -
+https://docs.docker.com/get-docker/
 
 ### Step 3 -
 
-Run the MongoDB server using your OS's service manager 
+Simply run - 
 
-Ubuntu - `sudo systemctl start mondod`
-
-OSX - `brew services start mongodb-community@5.0` (this version is recommended)
-
-For other OS, please refer the docs.
-
-Additional server configurations can be modified in `inventory-tracking/server/config/local.json`
+`docker-compose up`
 
 ### Step 4 - 
-
-In the `inventory-tracking` folder, run the following commands to install the packages and start the project.
-
-`npm i`
-
-`npm start`
 
 Navigate to `http://localhost:3000` to view the project.
 
@@ -145,3 +139,4 @@ Done!
 - Express.js
 - MongoDB
 - Mongoose
+- Docker

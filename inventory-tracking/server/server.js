@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const mongodburl = process.env.MONGO_URL || config.mongodb.url;
 startServer();
 
 async function startServer() {
@@ -21,10 +21,10 @@ async function startServer() {
     }));
     app.use('/', routes);
     try {
-        await mongoose.connect(config.mongodb.url, {
+        await mongoose.connect(mongodburl, {
             useNewUrlParser: true,
         });
-        console.log('Successfully Connected to the Mongodb at ' + config.mongodb.url);
+        console.log('Successfully Connected to the Mongodb at ' + mongodburl);
         // await http.createServer(app).listen(config.server.port, config.server.host);
         // console.log('Express server listening on port ' + config.server.port);
     } catch (e) {

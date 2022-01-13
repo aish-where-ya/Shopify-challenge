@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  app:
+    build:
+      context: ./inventory-tracking
+      dockerfile: Dockerfile
+    image: myapp
+    container_name: myapp
+    command: npm start
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/inventory
+    ports:
+      - "3000:3000"
