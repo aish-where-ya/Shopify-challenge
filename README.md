@@ -132,6 +132,9 @@ In the `inventory-tracking` folder, run the following commands to install the pa
 
 `npm start`
 
+Navigate to `http://localhost:3000` to view the project.
+
+Done!
 
 
 
