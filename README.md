@@ -17,7 +17,7 @@ Additional functionality :
 
 ## Description 
 
-The webpage is a Single Page Application consisting of basic CRUD functionality. There is a MongoDB backend that connects to the Node.js server over Mongoose. 
+The webpage is a Single Page Application consisting of basic CRUD functionality. There is a MongoDB database that connects to the Node.js server over Mongoose. 
 
 An inventory item is defined as collection with the following properties - 
 
@@ -27,7 +27,7 @@ An inventory item is defined as collection with the following properties -
 - Cost
 - Created At (Timestamp)
 
-The frontend is a React.js framework that displays the list of items currently in the inventory. Items in the inventory can be created, updated and deleted. There is also an additional functionality to download the inventory items as CSV files.
+The frontend is a React.js framework that displays the list of items currently in the inventory. Items in the inventory can be created, updated and deleted. There is also an additional functionality to download the list of inventory items as CSV files.
 
 
 Adding an Item - 
@@ -42,7 +42,7 @@ Updating an Item -
 
 ![ss3](./screenshots/ss3.png)
 
-CSV of Product Data -
+CSV File of Product Data -
 
 ![ss4](./screenshots/ss4.png)
 
@@ -126,7 +126,7 @@ Additional server configurations can be modified in `inventory-tracking/server/c
 
 ### Step 4 - 
 
-In the `inventory-tracking` folder, install the packages and start the project.
+In the `inventory-tracking` folder, run the following commands to install the packages and start the project.
 
 `npm i`
 
