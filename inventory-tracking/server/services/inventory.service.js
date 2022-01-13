@@ -10,7 +10,7 @@ exports.create = async function (obj) {
         name: obj.name,
         type: obj.type,
         cost: obj.cost,
-        createdAt: obj.createdAt ? new Date(obj.createdAt) : null,
+        createdAt: obj.createdAt ? obj.createdAt : new Date(),
     });
     await inventory.save();
     return inventory;

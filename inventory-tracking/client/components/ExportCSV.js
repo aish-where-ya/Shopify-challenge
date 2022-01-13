@@ -8,7 +8,8 @@ const ExportCSV = (props) => {
         { label: "UID", key:"_id"},
         { label: "Name", key: "name" },
         { label: "Type", key: "type" },
-        { label: "Cost", key: "cost" }
+        { label: "Cost", key: "cost" },
+        { label: "Created At", key: "createdAt"}
     ];
     const onClick = () =>{
         csvlink.current.link.click();
